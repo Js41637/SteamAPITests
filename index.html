@@ -4,7 +4,7 @@
    <script src="main.js"></script>
    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
+{{myProfile}}
 <body ng-controller="MainCtrl">
 	<p ng-if="returnError[0] == 'true'" id="apierror"><strong>Error!</strong> - {{getErrorMsg(returnError[1].status)}}</p>
 	<form name="apikeyentry" style="margin:3px;padding: 5px;">
@@ -19,9 +19,11 @@
 				<button ng-click="getProfile()">Get My Profile</button>
 				<div>
 					<h2>SteamID: {{myProfile.steamid}}</h2>
-					<div>
+					<div style="position:relative" ng-if="myProfile.steamid >= 1">
 						<div style="width:184px;display:inline-block;"><img ng-src="{{myProfile.avatarfull}}" /></div>
 						<div style="display:inline-block;position:absolute;margin-left:15px;"><p style="font-size:30px;">{{myProfile.personaname}}</p></div>
+						<div style="display:inline-block;position:absolute;margin-left:15px;top:37px"><p>Date Created: {{myProfile.timecreated *1000 | date:'medium'}}</p></div>
+						<div style="display:inline-block;position:absolute;margin-left:15px;top:53px"><p>Location: {{myProfile.locstatecode}}</p></div>
 					</div>
 				</div> 
 			</td>
