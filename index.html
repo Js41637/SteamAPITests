@@ -4,7 +4,7 @@
    <script src="main.js"></script>
    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-{{myProfile}}
+<span style="word-wrap: break-word;">{{myProfile}}</span>
 <body ng-controller="MainCtrl">
 	<p ng-if="returnError[0] == 'true'" id="apierror"><strong>Error!</strong> - {{getErrorMsg(returnError[1].status)}}</p>
 	<form name="apikeyentry" style="margin:3px;padding: 5px;">
@@ -18,21 +18,18 @@
 			<td style="vertical-align:top;width:496px;height:300px">
 				<button ng-click="getProfile()">Get My Profile</button>
 				<div>
-					<h2>SteamID: {{myProfile.steamid}}</h2>
-					<div style="position:relative" ng-if="myProfile.steamid >= 1">
-						<div style="width:184px;display:inline-block;"><img ng-src="{{myProfile.avatarfull}}" /></div>
-						<div style="display:inline-block;position:absolute;margin-left:15px;"><p style="font-size:30px;">{{myProfile.personaname}}</p></div>
-						<div style="display:inline-block;position:absolute;margin-left:15px;top:37px"><p>Date Created: {{myProfile.timecreated *1000 | date:'medium'}}</p></div>
-						<div style="display:inline-block;position:absolute;margin-left:15px;top:53px"><p>Location: {{myProfile.locstatecode}}</p></div>
+					<h2>SteamID: {{p_profile.steamid}}</h2>
+					<div style="position:relative" ng-if="p_profile.steamid >= 1">
+						<div style="width:184px;display:inline-block;"><img ng-src="{{p_profile.avatarfull}}" /></div>
+						<div style="display:inline-block;position:absolute;margin-left:15px;"><p style="font-size:30px;">{{p_profile.personaname}}</p></div>
+						<div style="display:inline-block;position:absolute;margin-left:15px;top:37px"><p>Date Created: {{p_profile.timecreated *1000 | date:'medium'}}</p></div>
+						<div style="display:inline-block;position:absolute;margin-left:15px;top:53px"><p>Location: {{p_profile.locstatecode}}</p></div>
 					</div>
 				</div> 
 			</td>
 			<td rowspan="2" style="vertical-align:top;width:calc(100% - 500px);">
 				<button ng-click="getFriends()">Get Friends</button></br>
-				<div ng-repeat="friend in friends" class="steamfriends">
-					<h2>SteamID: {{friend.steamid}}</h2>
-					Friend Since: {{friend.friend_since *1000 | date:'medium'}}
-				</div>
+				<steam-friend ng-repeat="friend in friendslist" class="steamfriends"></steam-friend>
 			</td>
 		</tr>
 		<tr>
