@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Something",
-  "description": "Meh",
+  "name": "Steam API Tests",
+  "description": "Tests for the SteamAPI :)",
   "version": "1.0",
 
   "permissions": [
