@@ -6,11 +6,11 @@
 </head>
 <span style="word-wrap: break-word;">{{myProfile}}</span>
 <body ng-controller="MainCtrl">
-	<p ng-if="returnError[0] == 'true'" id="apierror"><strong>Error!</strong> - {{getErrorMsg(returnError[1].status)}}</p>
+	<p ng-if="returnError[0] == 'true'" id="apierror"><strong>Error!</strong> - {{getErrorMsg(returnError[1])}}</p>
 	<form name="apikeyentry" style="margin:3px;padding: 5px;">
-		API Key: <input style="width:275px;margin-left:15px;" type="text" name="eAPI" ng-model="steamApiKey" required>
+		<p style="display:inline-block;width:65px">API Key:</p> <input style="width:275px" type="text" name="eAPI" ng-model="steamApiKey" required>
 		<span class="apiinputerr" ng-show="apikeyentry.eAPI.$error.required">Required!</span><br>
-		SteamID: <input style="width:275px;margin-left:8px;" type="text" name="eID" ng-model="pSteamID">
+		<p style="display:inline-block;width:65px">SteamID:</p> <input style="width:275px" type="text" name="eID" ng-model="pSteamID">
 		<span class="apiinputerr" ng-show="apikeyentry.eID.$error.required">Required!</span><br>
 	</form>
 	<table border="1" style="table-layout:fixed">
