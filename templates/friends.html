@@ -1,7 +1,8 @@
 <div class="friendavatar">
-	<img ng-src="http://placehold.it/64x64" width="64px" height="64px" />
+	<img ng-src="{{friend.detailed[0].avatarmedium}}" width="64px" height="64px" />
 </div>
 <div class="friendinfo">
-	<h2>SteamID: {{friend.steamid}}</h2>
-	Friend Since: {{friend.friend_since *1000 | date:'medium'}}
+	<h2>{{friend.detailed[0].personaname}}</h2>
+	Friend Since: {{friend.friend_since *1000 | date:'medium'}}</br>
+	SteamID: {{friend.steamid}}
 </div>

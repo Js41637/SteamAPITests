@@ -24,6 +24,17 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI'])
   $scope.getFriends = function(){
     steamAPI.getFriends($scope.steamApiKey, $scope.pSteamID).then(function(response) {
       $scope.friendslist = response.data.friendslist.friends;
+      //Cycle through each friend in the list
+      angular.forEach($scope.friendslist, function(friend) {
+        friend.detailed = [];
+        //Get detailed profile information for friend
+        //ToDo - Don't get friend info seperately, Steam won't appreciate the
+        //MiniDDoS sending heaps of GET requests for each of your friends.
+        steamAPI.getProfile($scope.steamApiKey, friend.steamid).then(function(info) {
+          //Push detailed infomation to original friend array
+          friend.detailed.push(info.data.response.players[0])
+        })
+      });
       $scope.returnError = ['false', null];
     }, function(err) {
         $scope.returnError = ['true', err];
