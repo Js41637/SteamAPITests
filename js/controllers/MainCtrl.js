@@ -24,11 +24,12 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI'])
   $scope.getFriends = function(){
     steamAPI.getFriends($scope.steamApiKey, $scope.pSteamID).then(function(response) {
       $scope.friendslist = response.data.friendslist.friends;
+
       angular.forEach($scope.friendslist, function(friend) {
         steamAPI.getProfile($scope.steamApiKey, friend.steamid).then(function(info) {
           friend.detailed = info.data.response.players[0];
         })
-      });
+      })
       $scope.returnError = ['false', null];
     }, function(err) {
         $scope.returnError = ['true', err];

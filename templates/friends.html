@@ -1,4 +1,4 @@
-<div class="friendavatar">
+<div class="playeravatar" ng-class="{'offline': friend.detailed.personastate == '0', 'online': friend.detailed.personastate >= '1'}">
 	<img ng-src="{{friend.detailed.avatarmedium}}" width="64px" height="64px" />
 </div>
 <div class="friendinfo">

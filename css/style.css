@@ -5,7 +5,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
-.steamfriends {
+steam-friend  {
 	border: 2px solid green;
 	border-radius: 15px;
 	padding: 5px;
@@ -14,12 +14,75 @@ html, body {
 	position: relative;
 	height: 90px;
 }
-.friendavatar {
+steam-friend .playeravatar {
 	position: absolute;
-	top: 8px;
-	left: 7px;
+	top: 6px;
+	left: 6px;
+	border-radius: 0;
+	padding: 2px;
 	width: 66px;
 	height: 66px;
+}
+steam-friend .playeravatar.offline {
+	background: -moz-linear-gradient(top, rgba(106,106,106,1) 5%, rgba(85,85,85,1) 95%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,rgba(106,106,106,1)), color-stop(95%,rgba(85,85,85,1)));
+	background: -webkit-linear-gradient(top, rgba(106,106,106,1) 5%,rgba(85,85,85,1) 95%);
+	background: -o-linear-gradient(top, rgba(106,106,106,1) 5%,rgba(85,85,85,1) 95%);
+	background: -ms-linear-gradient(top, rgba(106,106,106,1) 5%,rgba(85,85,85,1) 95%);
+	background: linear-gradient(to bottom, rgba(106,106,106,1) 5%,rgba(85,85,85,1) 95%);
+	filter: none;
+}
+steam-friend .playeravatar.online {
+	background-color: #57cbde;
+	background: -moz-linear-gradient(top, rgba(83,164,196,1) 5%, rgba(69,128,151,1) 95%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,rgba(83,164,196,1)), color-stop(95%,rgba(69,128,151,1)));
+	background: -webkit-linear-gradient(top, rgba(83,164,196,1) 5%,rgba(69,128,151,1) 95%);
+	background: -o-linear-gradient(top, rgba(83,164,196,1) 5%,rgba(69,128,151,1) 95%);
+	background: -ms-linear-gradient(top, rgba(83,164,196,1) 5%,rgba(69,128,151,1) 95%);
+	background: linear-gradient(to bottom, rgba(83,164,196,1) 5%,rgba(69,128,151,1) 95%);
+	filter: none;
+}
+steam-friend .playeravatar.in-game {
+	background-color: #90ba3c;
+	background: -moz-linear-gradient(top, rgba(143,185,59,1) 5%, rgba(110,140,49,1) 95%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,rgba(143,185,59,1)), color-stop(95%,rgba(110,140,49,1)));
+	background: -webkit-linear-gradient(top, rgba(143,185,59,1) 5%,rgba(110,140,49,1) 95%);
+	background: -o-linear-gradient(top, rgba(143,185,59,1) 5%,rgba(110,140,49,1) 95%);
+	background: -ms-linear-gradient(top, rgba(143,185,59,1) 5%,rgba(110,140,49,1) 95%);
+	background: linear-gradient(to bottom, rgba(143,185,59,1) 5%,rgba(110,140,49,1) 95%);
+	filter: none;
+}
+steam-friend .playeravatar img {
+	border-radius: 0px;
+	padding: 1px;
+	border: none;
+}
+steam-friend .playeravatar.offline img {
+	background: -moz-linear-gradient(top, #515151 5%, #474747 95%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#515151), color-stop(95%,#474747));
+	background: -webkit-linear-gradient(top, #515151 5%,#474747 95%);
+	background: -o-linear-gradient(top, #515151 5%,#474747 95%);
+	background: -ms-linear-gradient(top, #515151 5%,#474747 95%);
+	background: linear-gradient(to bottom, #515151 5%,#474747 95%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#515151', endColorstr='#474747',GradientType=0 );
+}
+steam-friend .playeravatar.online img {
+	background: -moz-linear-gradient(top, #41778f 5%, #3d697b 95%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#41778f), color-stop(95%,#3d697b));
+	background: -webkit-linear-gradient(top, #41778f 5%,#3d697b 95%);
+	background: -o-linear-gradient(top, #41778f 5%,#3d697b 95%);
+	background: -ms-linear-gradient(top, #41778f 5%,#3d697b 95%);
+	background: linear-gradient(to bottom, #41778f 5%,#3d697b 95%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#41778f', endColorstr='#3d697b',GradientType=0 );
+}
+steam-friend .playeravatar.in-game img {
+	background: -moz-linear-gradient(top, #66812e 5%, #59702b 95%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#66812e), color-stop(95%,#59702b));
+	background: -webkit-linear-gradient(top, #66812e 5%,#59702b 95%);
+	background: -o-linear-gradient(top, #66812e 5%,#59702b 95%);
+	background: -ms-linear-gradient(top, #66812e 5%,#59702b 95%);
+	background: linear-gradient(to bottom, #66812e 5%,#59702b 95%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66812e', endColorstr='#59702b',GradientType=0 );
 }
 .friendinfo {
 	padding-left: 75px;
