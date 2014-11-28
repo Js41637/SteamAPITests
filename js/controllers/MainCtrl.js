@@ -1,6 +1,6 @@
-angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI'])
+angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 'SteamAPI.providers.MiniProfile'])
 
-.controller('MainCtrl', function($scope, steamAPI) {
+.controller('MainCtrl', function($scope, steamAPI, miniProfile) {
 
   $scope.steamApiKey = "";
   $scope.pSteamID = "";
@@ -15,6 +15,11 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI'])
         return;
       }
       $scope.p_profile = response.data.response.players[0];
+      miniProfile.getDetails($scope.pSteamID).then(function(response) {
+        $scope.p_profile.level = response.steamLevel;
+        $scope.p_profile.badgename = response.badgeName;
+        $scope.p_profile.badgeurl = response.badgeImg;
+      })
       $scope.returnError = ['false', null];
     }, function(err) {
         $scope.returnError = ['true', err];

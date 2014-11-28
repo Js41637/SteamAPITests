@@ -3,8 +3,7 @@ angular.module('SteamAPI.providers.SteamAPI', [])
 /** 
  * Steam API Endpoint
  */
-.factory('steamAPI', function($http){
-
+.factory('steamAPI', function($http) {
   var endpoints = {
     servers: 'https://api.steampowered.com/IGameServersService/GetAccountList/v0001/?key=%key%',
     friendslist: 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=%key%&steamid=%ids%',
