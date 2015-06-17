@@ -1,13 +1,70 @@
 angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 'SteamAPI.providers.MiniProfile'])
 
-.controller('MainCtrl', function($scope, steamAPI, miniProfile) {
+.controller('MainCtrl', function($scope, steamAPI, miniProfile, towerAttack) {
 
   $scope.steamApiKey = "";
   $scope.pSteamID = "";
 
+  $scope.thingy = false;
+
   $scope.returnError = ['false', null];
 
-  $scope.getProfile = function(){
+  $scope.shit = {
+    IGameID: '',
+    ISteamID: '',
+    IIncludeStats: 0
+  };
+
+  $scope.game_data = null;
+  $scope.player_data = null;
+  $scope.player_names = null;
+
+  $scope.getGameData = function() {
+    towerAttack.getGameData($scope.shit.IGameID, $scope.shit.IIncludeStats).then(function(response) {
+      if(response.game_data === undefined) {
+        $scope.returnError = ['true', "unknown"];
+        $scope.game_data = null;
+        return;
+      }
+      $scope.game_data = response.game_data;
+
+      $scope.returnError = ['false', null];
+    }, function(err) {
+        $scope.returnError = ['true', err];
+    })
+  };
+
+  $scope.getPlayerData = function() {
+    towerAttack.getPlayerData($scope.shit.IGameID, $scope.shit.ISteamID, $scope.shit.IIncludeStats).then(function(response) {
+      if(response.player_data === undefined) {
+        $scope.returnError = ['true', "notthere"];
+        $scope.player_data = null;
+        return;
+      }
+      $scope.player_data = response.player_data;
+
+      $scope.returnError = ['false', null];
+    }, function(err) {
+        $scope.returnError = ['true', err];
+    })
+  };
+
+  $scope.getPlayerNames = function() {
+    towerAttack.getPlayerNames($scope.shit.IGameID).then(function(response) {
+      if(response.names === undefined) {
+        $scope.returnError = ['true', "unknown"];
+        $scope.player_names = null;
+        return;
+      }
+      $scope.player_names = response.names;
+
+      $scope.returnError = ['false', null];
+    }, function(err) {
+        $scope.returnError = ['true', err];
+    })
+  };
+
+  $scope.getProfile = function() {
     steamAPI.getProfile($scope.steamApiKey, $scope.pSteamID).then(function(response) {
       if(response.data.response.players.length == 0) {
         $scope.returnError = ['true', 'invalid'];
@@ -26,7 +83,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
     })
   };
 
-  $scope.getFriends = function(){
+  $scope.getFriends = function() {
     steamAPI.getFriends($scope.steamApiKey, $scope.pSteamID).then(function(response) {
       $scope.friendslist = response.data.friendslist.friends;
 
@@ -41,7 +98,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
     })
   };
 
-  $scope.getServers = function(){
+  $scope.getServers = function() {
     steamAPI.getServers($scope.steamApiKey).then(function(response) {
       $scope.servers = response.data.response.servers;
       $scope.returnError = ['false', null];
@@ -62,6 +119,12 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
     }
     else if(err == 'invalid') {
       return "SteamID does not exist or correspond to an account"
+    }
+    else if(err == 'notthere') {
+      return "A player with that ID doesn't appear to be in that room"
+    }
+    else if(err == 'unknown') {
+      return "Not sure what went wrong :/"
     }
     else {
       return "Something went wrong, error code: "+err;
