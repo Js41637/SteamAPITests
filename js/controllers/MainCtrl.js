@@ -1,6 +1,6 @@
 angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 'SteamAPI.providers.MiniProfile'])
 
-.controller('MainCtrl', function($scope, steamAPI, miniProfile, towerAttack, $http) {
+.controller('MainCtrl', function($scope, steamAPI, miniProfile, towerAttack) {
 
   //I cbf converting these on my own
   var oldValveIDs = [
@@ -246,6 +246,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   $scope.player_names = null;
   $scope.valve_employees = [];
 
+  // Shows Hides the old tests
   $scope.thingy = false;
 
   $scope.returnError = ['false', null];
@@ -308,6 +309,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
     })
   };
 
+  // Repeats galor
   $scope.findValveEmployees = function() {
     $scope.valve_employees = [];
     towerAttack.getTopRooms().then(function(rooms) {
@@ -330,6 +332,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
     });
   };
 
+/* Old SteamAPI Tests | Not related to the things above */
   $scope.getProfile = function() {
     steamAPI.getProfile($scope.apiKey.steamApiKey, $scope.apiKey.pSteamID).then(function(response) {
       if(response.data.response.players.length == 0) {
