@@ -8,7 +8,8 @@ angular.module('SteamAPI.providers.TowerAttack', [])
   var endpoints = {
     gameData: 'http://steamapi-a.akamaihd.net/ITowerAttackMiniGameService/GetGameData/v0001/?gameid=%gid&include_stats=%stats',
     playerData: 'http://steamapi-a.akamaihd.net/ITowerAttackMiniGameService/GetPlayerData/v0001/?gameid=%gid&steamid=%sid&include_tech_tree=%stats',
-    playerNames: 'http://steamapi-a.akamaihd.net/ITowerAttackMiniGameService/GetPlayerNames/v0001/?gameid=%gid'
+    playerNames: 'http://steamapi-a.akamaihd.net/ITowerAttackMiniGameService/GetPlayerNames/v0001/?gameid=%gid',
+    topRooms: 'https://lab.xpaw.me/towerattack.php'
   };
 
   /** 
@@ -19,7 +20,18 @@ angular.module('SteamAPI.providers.TowerAttack', [])
     return out;
   };
 
-  var praseResponse = function(profile) {};
+  var praseTopRooms = function(rooms) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(rooms.data, "text/html");
+    var rooms = doc.querySelectorAll('tbody tr')
+    var output = [];
+    //Limit to Top 50
+    for (var i = 0; i < 50; i++) {
+      output.push(rooms[i].querySelector('td:nth-of-type(2)').innerText.replace(/\s+/g, ''));
+    }
+    
+    return output;
+  }
 
   var service = {
     getGameData: function(gId, stats) {
@@ -36,6 +48,11 @@ angular.module('SteamAPI.providers.TowerAttack', [])
       return $http.get(getUrl("playerNames", gId, undefined, undefined)).then(function(response) {
         return response.data.response;
       });
+    },
+    getTopRooms: function() {
+      return $http.get(getUrl("topRooms", undefined, undefined, undefined)).then(function(response) {
+        return praseTopRooms(response);
+      })
     }
   };
   return service;

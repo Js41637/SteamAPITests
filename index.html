@@ -18,7 +18,7 @@
 			<p style="display:inline-block;width:100px">SteamID:</p> <input style="width:240px" type="text" ng-model="shit.ISteamID"><br>
 			<p style="display:inline-block;width:100px">Include Stats?</p> <input type="checkbox" ng-model="shit.IIncludeStats" ng-true-value="1" ng-false-value="0"><br>
 	</div>
-	<button ng-click="getGameData()">Get Game Data</button> <button ng-click="getPlayerData()">Get Player Data</button> <button ng-click="getPlayerNames()">Get Player Names</button>
+	<button ng-click="getGameData()">Get Game Data</button> <button ng-click="getPlayerData()">Get Player Data</button> <button ng-click="getPlayerNames()">Get Player Names</button> <button ng-click="findValveEmployees()">Find Valve Employees</button>
 
 	<div style="padding:20px">
 		<table>
@@ -32,7 +32,15 @@
 					<span>Gold: {{player_data.gold | number}}</span><br>
 				</td>
 				<td>
-					<span ng-repeat="player in player_names | orderBy: 'name' track by player.accountid" class="playernames">
+					<div style="margin-bottom: 15px">
+						<span ng-repeat="valver in valve_employees | orderBy: ['gameID','name'] track by $index" class="playernames valve">
+							Name: {{valver.name}}<br>
+							accountID: {{valver.accountid}}<br>
+							GameID: {{valver.gameID}}<br>
+						</span>
+					</div>
+					<div style="text-align:center;font-size:38px;margin-right:102px;padding-bottom: 5px;">Room {{shit.IGameID}}</div>
+					<span ng-repeat="player in player_names | orderBy: ['isValve','name'] track by player.accountid" class="playernames" ng-class="{'valve':player.isValve}">
 						Name: {{player.name}}<br>
 						accountID: {{player.accountid}}<br>
 					</span>
