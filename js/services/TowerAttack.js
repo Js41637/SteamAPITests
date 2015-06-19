@@ -24,10 +24,11 @@ angular.module('SteamAPI.providers.TowerAttack', [])
   var praseTopRooms = function(rooms) {
     var parser = new DOMParser();
     var doc = parser.parseFromString(rooms.data, "text/html");
-    var rooms = doc.querySelectorAll('tbody tr')
+    var rooms = doc.querySelectorAll('tbody tr');
+    var length = rooms.length > 150 ? 150 : rooms.length;
     var output = [];
     //Limit to Top 150
-    for (var i = 0; i < 150; i++) {
+    for (var i = 0; i < length; i++) {
       output.push(rooms[i].querySelector('td:nth-of-type(2)').innerText.replace(/\s+/g, ''));
     }
     

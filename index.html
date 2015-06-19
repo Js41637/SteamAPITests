@@ -33,7 +33,7 @@
 				</td>
 				<td>
 					<div style="margin-bottom: 15px">
-						<minigame-player ng-repeat="valver in valve_employees | orderBy: ['-gameLevel',gameID','name'] track by $index" class="playernames valve"></minigame-player>
+						<minigame-player ng-repeat="valver in valve_employees | orderBy: ['-gameLevel','gameID','name'] track by $index" class="playernames valve"></minigame-player>
 					</div>
 					<div style="text-align:center;font-size:38px;margin-right:102px;padding-bottom: 5px;">Room {{minigame.IGameID}}</div>
 					<span ng-repeat="player in player_names | orderBy: ['isValve','name'] track by player.accountid" class="playernames" ng-class="{'valve':player.isValve}">

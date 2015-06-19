@@ -310,7 +310,6 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
 
   $scope.findValveEmployees = function() {
     towerAttack.getTopRooms().then(function(rooms) {
-      console.log(rooms)
       angular.forEach(rooms, function(room) {
         towerAttack.getPlayerNames(room).then(function(response) {
           angular.forEach(response.names, function(player) {
