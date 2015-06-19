@@ -25,7 +25,20 @@ steam-friend  {
 	position: relative;
 	height: 90px;
 }
-steam-friend .playeravatar {
+minigame-player {
+	border-radius: 15px;
+	padding: 5px;
+	margin: 3px;
+	display: inline-block;
+	position: relative;
+}
+minigame-player .playerinfo h2 {
+	margin-left: -20px;
+}
+minigame-player .playerinfo {
+	margin-left: 30px;
+}
+.playeravatar {
 	position: absolute;
 	top: 6px;
 	left: 6px;
@@ -119,7 +132,7 @@ p {
 }
 .playernames {
 	display: inline-block;
-	padding: 10px;
+	padding: 5px;
 	width: 30%;
 	border-bottom: 1px solid;
 	border-right: 1px solid;

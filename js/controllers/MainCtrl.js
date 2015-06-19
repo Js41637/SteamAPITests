@@ -2,13 +2,6 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
 
 .controller('MainCtrl', function($scope, steamAPI, miniProfile, towerAttack, $http) {
 
-  $scope.steamApiKey = "";
-  $scope.pSteamID = "";
-
-  $scope.thingy = false;
-
-  $scope.returnError = ['false', null];
-
   //I cbf converting these on my own
   var oldValveIDs = [
     "76561197985607672",
@@ -235,9 +228,14 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   // Goes through each ID and converts to an ID we can use
   for (var i = 0; i < oldValveIDs.length; i++) {
     newValveIDs.push((oldValveIDs[i].substr(3) - 61197960265728))
-  }
+  };
 
-  $scope.shit = {
+  $scope.apiKey = {
+    steamApiKey: "",
+    pSteamID: ""
+  };
+  
+  $scope.minigame = {
     IGameID: '',
     ISteamID: '',
     IIncludeStats: 0
@@ -248,8 +246,12 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   $scope.player_names = null;
   $scope.valve_employees = [];
 
+  $scope.thingy = false;
+
+  $scope.returnError = ['false', null];
+
   $scope.getGameData = function(gid) {
-    towerAttack.getGameData(gid || $scope.shit.IGameID, $scope.shit.IIncludeStats).then(function(response) {
+    towerAttack.getGameData(gid || $scope.minigame.IGameID, $scope.minigame.IIncludeStats).then(function(response) {
       if (response.game_data === undefined) {
         $scope.returnError = ['true', "unknown"];
         $scope.game_data = null;
@@ -264,7 +266,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   };
 
   $scope.getPlayerData = function() {
-    towerAttack.getPlayerData($scope.shit.IGameID, $scope.shit.ISteamID, $scope.shit.IIncludeStats).then(function(response) {
+    towerAttack.getPlayerData($scope.minigame.IGameID, $scope.minigame.ISteamID, $scope.minigame.IIncludeStats).then(function(response) {
       if (response.player_data === undefined) {
         $scope.returnError = ['true', "notthere"];
         $scope.player_data = null;
@@ -279,7 +281,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   };
 
   $scope.getPlayerNames = function() {
-    towerAttack.getPlayerNames($scope.shit.IGameID).then(function(response) {
+    towerAttack.getPlayerNames($scope.minigame.IGameID).then(function(response) {
       if(response.names === undefined) {
         $scope.returnError = ['true', "unknown"];
         $scope.player_names = null;
@@ -318,7 +320,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
               player.gameID = room;
               towerAttack.getGameData(player.gameID).then(function(response) {
                 player.gameLevel = response.game_data.level;
-              })
+              });
               $scope.valve_employees.push(player);
             }
            })
@@ -329,14 +331,14 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   };
 
   $scope.getProfile = function() {
-    steamAPI.getProfile($scope.steamApiKey, $scope.pSteamID).then(function(response) {
+    steamAPI.getProfile($scope.apiKey.steamApiKey, $scope.apiKey.pSteamID).then(function(response) {
       if(response.data.response.players.length == 0) {
         $scope.returnError = ['true', 'invalid'];
         $scope.p_profile = null;
         return;
       }
       $scope.p_profile = response.data.response.players[0];
-      miniProfile.getDetails($scope.pSteamID).then(function(response) {
+      miniProfile.getDetails($scope.apiKey.pSteamID).then(function(response) {
         $scope.p_profile.level = response.steamLevel;
         $scope.p_profile.badgename = response.badgeName;
         $scope.p_profile.badgeurl = response.badgeImg;
@@ -348,11 +350,11 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   };
 
   $scope.getFriends = function() {
-    steamAPI.getFriends($scope.steamApiKey, $scope.pSteamID).then(function(response) {
+    steamAPI.getFriends($scope.apiKey.steamApiKey, $scope.apiKey.pSteamID).then(function(response) {
       $scope.friendslist = response.data.friendslist.friends;
 
       angular.forEach($scope.friendslist, function(friend) {
-        steamAPI.getProfile($scope.steamApiKey, friend.steamid).then(function(info) {
+        steamAPI.getProfile($scope.apiKey.steamApiKey, friend.steamid).then(function(info) {
           friend.detailed = info.data.response.players[0];
         })
       })
@@ -363,7 +365,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   };
 
   $scope.getServers = function() {
-    steamAPI.getServers($scope.steamApiKey).then(function(response) {
+    steamAPI.getServers($scope.apiKey.steamApiKey).then(function(response) {
       $scope.servers = response.data.response.servers;
       $scope.returnError = ['false', null];
     }, function(err) {

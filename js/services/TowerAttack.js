@@ -26,8 +26,8 @@ angular.module('SteamAPI.providers.TowerAttack', [])
     var doc = parser.parseFromString(rooms.data, "text/html");
     var rooms = doc.querySelectorAll('tbody tr')
     var output = [];
-    //Limit to Top 50
-    for (var i = 0; i < 50; i++) {
+    //Limit to Top 150
+    for (var i = 0; i < 150; i++) {
       output.push(rooms[i].querySelector('td:nth-of-type(2)').innerText.replace(/\s+/g, ''));
     }
     
