@@ -32,6 +32,7 @@
 					<span>Gold: {{player_data.gold | number}}</span><br>
 				</td>
 				<td>
+					<div style="text-align:center;font-size:38px;margin-right:102px;padding-bottom: 5px;">Valve Employees In-Game</div>
 					<div style="margin-bottom: 15px">
 						<minigame-player ng-repeat="valver in valve_employees | orderBy: ['-gameLevel','gameID','name'] track by $index" class="playernames valve"></minigame-player>
 					</div>
