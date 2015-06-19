@@ -36,7 +36,8 @@
 						<span ng-repeat="valver in valve_employees | orderBy: ['gameID','name'] track by $index" class="playernames valve">
 							Name: {{valver.name}}<br>
 							accountID: {{valver.accountid}}<br>
-							GameID: {{valver.gameID}}<br>
+							<a ng-click="getGameData(valver.gameID)">GameID: {{valver.gameID}}</a><br>
+							Game Level: {{valver.gameLevel}}<br>
 						</span>
 					</div>
 					<div style="text-align:center;font-size:38px;margin-right:102px;padding-bottom: 5px;">Room {{shit.IGameID}}</div>

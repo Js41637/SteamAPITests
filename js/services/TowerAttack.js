@@ -9,6 +9,7 @@ angular.module('SteamAPI.providers.TowerAttack', [])
     gameData: 'http://steamapi-a.akamaihd.net/ITowerAttackMiniGameService/GetGameData/v0001/?gameid=%gid&include_stats=%stats',
     playerData: 'http://steamapi-a.akamaihd.net/ITowerAttackMiniGameService/GetPlayerData/v0001/?gameid=%gid&steamid=%sid&include_tech_tree=%stats',
     playerNames: 'http://steamapi-a.akamaihd.net/ITowerAttackMiniGameService/GetPlayerNames/v0001/?gameid=%gid',
+    // Sorry xPaw :)
     topRooms: 'https://lab.xpaw.me/towerattack.php'
   };
 

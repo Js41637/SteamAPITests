@@ -248,9 +248,9 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
   $scope.player_names = null;
   $scope.valve_employees = [];
 
-  $scope.getGameData = function() {
-    towerAttack.getGameData($scope.shit.IGameID, $scope.shit.IIncludeStats).then(function(response) {
-      if(response.game_data === undefined) {
+  $scope.getGameData = function(gid) {
+    towerAttack.getGameData(gid || $scope.shit.IGameID, $scope.shit.IIncludeStats).then(function(response) {
+      if (response.game_data === undefined) {
         $scope.returnError = ['true', "unknown"];
         $scope.game_data = null;
         return;
@@ -265,7 +265,7 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
 
   $scope.getPlayerData = function() {
     towerAttack.getPlayerData($scope.shit.IGameID, $scope.shit.ISteamID, $scope.shit.IIncludeStats).then(function(response) {
-      if(response.player_data === undefined) {
+      if (response.player_data === undefined) {
         $scope.returnError = ['true', "notthere"];
         $scope.player_data = null;
         return;
@@ -287,11 +287,11 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
       }
       $scope.player_names = response.names;
 
-      if($scope.player_names) {
+      if ($scope.player_names) {
         console.log("Crossmatching Valve IDs");
         angular.forEach($scope.player_names, function(player) {
          angular.forEach(newValveIDs, function(valveid) {
-          if(player.accountid == valveid) {
+          if (player.accountid == valveid) {
             console.log("Found Valve Employee", player.name);
             player.isValve = true;
             player.name += " [Valve]";
@@ -313,9 +313,12 @@ angular.module('SteamAPI.controllers.MainCtrl', ['SteamAPI.providers.SteamAPI', 
         towerAttack.getPlayerNames(room).then(function(response) {
           angular.forEach(response.names, function(player) {
            angular.forEach(newValveIDs, function(valveid) {
-            if(player.accountid == valveid) {
+            if (player.accountid == valveid) {
               console.log("Found Valve Employee", player.name);
               player.gameID = room;
+              towerAttack.getGameData(player.gameID).then(function(response) {
+                player.gameLevel = response.game_data.level;
+              })
               $scope.valve_employees.push(player);
             }
            })
